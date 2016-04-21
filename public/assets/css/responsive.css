@@ -1,0 +1,329 @@
+@media (min-width: 2000px) and (max-width: 2200px) {
+
+	.sidebar-fixed {
+		width: 13.4%;
+	}
+}
+
+@media (min-width: 1800px) and (max-width: 1999px) {
+
+	.sidebar-fixed {
+		width: 13.4%;
+	}
+}
+
+@media (min-width: 1600px) and (max-width: 1799px) {
+
+	.sidebar-fixed {
+		width: 15.4%;
+	}
+}
+
+@media (min-width: 1400px) and (max-width: 1599px) {
+
+	.sidebar-fixed {
+		width: 17.4%;
+	}
+}
+
+@media (max-width: 1199px) {
+	.product-list {
+		width: 100% !important;
+	}
+
+	.view, .review {
+		display: block;
+		margin-bottom: 10px;
+		width: 80px;
+	}
+
+	.view a, .review a {
+		margin-top: 0;
+	}
+
+	.product_btn {
+		left: 5px;
+		top:45%;
+	}
+
+	.wrapper {
+		margin: 0 auto !important;
+		width: 970px;
+	}
+
+	.ratings > img {
+		width: 39% !important;
+	}
+
+	.product-list li {
+		width: 31.9%;
+	}
+
+	.img_btn_wrap > img {
+		height: 230px;
+	}
+
+	.hover_item .ratings span {
+		font-size: 11px;
+		width: auto;
+	}
+
+
+}
+
+@media (min-width: 981px) and (max-width: 1100px) {
+
+
+	.sidebar_left > ul > li > a {
+		width: 50%;
+	}
+
+	.wrapper {
+		margin: 0 auto !important;
+		width: 970px;
+	}
+
+	.sidebar-fixed {
+		width: 20.8%;
+	}
+
+	.product_btn {
+		left: 12px;
+		top: 45%;
+	}
+
+}
+
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 980px) {
+
+	.hover_item .ratings span, .product-details .ratings span {
+		font-size: 12px;
+	}
+	.ratings > img {
+		display: inline-block;
+		margin-left: 0px;
+		width: 52%;
+	}
+
+	.search_btn form .search-field {
+		width: 100%;
+	}
+
+	.sidebar-fixed {
+		width: 28.6%;
+	}
+
+	.review_rating {
+		width: 58% !important;
+	}
+
+	.wrapper {
+		width: 750px;
+	}
+
+	.detail_rating {
+		width: 45% !important;
+	}
+
+	.product-list li {
+		width: 47.8% !important;
+	}
+
+	.hover_item .ratings > img {
+		display: block !important;
+		margin-bottom: 5px;
+		margin-left: 0;
+		width: 31%;
+	}
+
+	.hover_item {
+		top: 0;
+	}
+
+}
+
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+	.container {
+		width: 100%;
+	}
+
+	.product-list {
+		margin-right: 0;
+	}
+
+	.product-list > div {
+		width: 48.4%;
+	}
+
+	.product-list > div:nth-child(2n) {
+		margin-right: 0;
+	}
+
+	.product-list .img_btn_wrap img {
+		display: inline-block;
+		width: 100%;
+	}
+
+	.product-item {
+		border-radius: 5px 5px 0 0;
+	}
+
+	.ratings {
+		margin: 0;
+	}
+
+	.header {
+		background: #000 none repeat scroll 0 0;
+		height: auto;
+	}
+
+	.search_btn {
+		float: none;
+	}
+
+	.search_btn form .search-field {
+		width: 100%;
+	}
+
+	.content {
+		margin-top: 120px;
+	}
+
+	.img_btn_wrap:hover > img {
+		margin-left: -40%;
+	}
+
+	.wrapper {
+		width: 98%;
+	}
+
+	.fixed-sidebar .fa {
+		width: 5%;
+	}
+
+	.padding-left {
+		padding-left: 15px !important;
+	}
+
+	.detail-ratings .ratings {
+		padding: 10px 0;
+	}
+
+	.img_detail {
+		margin: 20px auto;
+		width: 50%;
+	}
+
+	.detail_rating {
+		margin: 20px auto;
+		padding: 0 30px !important;
+		width: 92% !important;
+	}
+
+	.sidebar-fixed {
+		position: static !important;
+		width: 100%;
+	}
+
+	.fixed-sidebar {
+		width: 100%;
+	}
+
+	.product-list li {
+		width: 48.3% !important;
+	}
+
+	.hover_item {
+		top: 10%;
+	}
+
+	.view-popup {
+		margin-left: -47%;
+		width: 94%;
+		position: absolute;
+	}
+
+}
+
+@media (max-width: 639px) {
+	.product-list li {
+		width: 100% !important;
+	}
+
+	.hover_item {
+		top: 18%;
+	}
+
+	.img_btn_wrap > img {
+		height: 400px;
+	}
+
+}
+
+
+
+
+@media (max-width: 480px) {
+	.copyright {
+		font-size: 15px;
+		line-height: 20px;
+	}
+
+	.product-list > div {
+		padding: 0 !important;
+		width: 100%;
+	}
+
+	.img_btn_wrap > img {
+		height: 350px;
+	}
+
+}
+
+
+@media (max-width: 420px) {
+	.product-list > div {
+		width: 100%;
+	}
+
+
+	.fixed-sidebar .fa {
+		width: 10%;
+	}
+
+	.img_detail {
+		margin: 20px auto;
+		width: 98%;
+	}
+
+	.detail_rating {
+		padding: 0 15px !important;
+		width: 89% !important;
+	}
+
+	.copyright {
+		font-size: 13px;
+	}
+
+	#topcontrol {
+		bottom: 50px !important;
+	}
+
+	.hover_item {
+		top: 16%;
+	}
+
+	.img_btn_wrap > img {
+		height: auto;
+	}
+
+	.review_rating {
+		margin-left: -45%;
+		width: 90%;
+	}
+
+}

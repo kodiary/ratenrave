@@ -1,0 +1,96 @@
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+public/assets/images/products/*
+
+# Windows shortcuts
+*.lnk
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+.idea/workspace.xml
+public/assets/images/restaurants/*
+public/assets/images/users/*
+*.jpg
+# please stop removing this line!!!!
+storage/framework/views/*
+# please stop removing this line!!!!
+*.xml
+*.bak
+nbproject
+public/royslog.txt
+config/app.php
+.idea/misc.xml
+.idea/misc.xml
+*.xml
+*.CPT
+*.blade_backup*
+laravel-session-values.txt
+Jan30,2016_latestdb.sql
+vendor/laravel/framework/src/Illuminate/Support/Facades/Input.php
+vendor/symfony/debug/Debug.php
+*.tar
+didueat.tar.gz
+vendor/composer/autoload_classmap.php
+vendor/laravel/framework/src/Illuminate/Routing/Redirector.php
+vendor/composer/ClassLoader.php
+vendor/composer/autoload_real.php
+vendor/composer/autoload_psr4.php
+vendor/composer/autoload_namespaces.php
+vendor/composer/autoload_files.php
+vendor/composer/autoload_classmap.php
+composer.lock
+*.CDR
+*.xml
+public/paul.log
+.env
+config/mail.php
+config/app.php
+.env
+*.env
+public/debugmode.ip
+app/Http/Controllers/HomeController_backupMarch31.php
+app/Http/Controllers/RestaurantController_backupMarch27.php
+public/assets/global/scripts/menu_manager_backupMarch31.js
+app/Http/Controllers/RestaurantController_backupMarch31.php
+latestdbApril16.sql
+resources/views/menus.blade_tempRenameApr6.php
+resources/views/popups/menu_form.blade_Apr6.php
+resources/views/popups/menu_form.blade_tempRenameApr6.php
+resources/views/restaurants-menus2.blade.php
+didueat_db_April19.sql

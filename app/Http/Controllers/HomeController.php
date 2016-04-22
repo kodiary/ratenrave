@@ -55,6 +55,7 @@ class HomeController extends Controller {
         $data['cuisine'] = cuisinelist();
         $data['meta_description'] = "Having great local food delivered helps us all keep up with our busy lives. By connecting you to local restaurants, Didueat makes great food more accessible, opening up more possibilities for food lovers and more business for local small business owners. ";
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
+        $data['colleges'] = \App\Http\Models\Products::whereNotNull('logo')->get();
        // $data['top_ten'] = $this->getTopTen();
         $data['query'] = 0;
         $data['count'] = 0;
@@ -62,7 +63,16 @@ class HomeController extends Controller {
         $data['hasMorePage'] = 0;
         return view('homepage', $data);
     }
-
+    
+    public function getDetails($cid)
+    {
+        
+        $data['college'] = \App\Http\Models\Products::where('id',$cid)->first();
+        if(isset($_GET['review']))
+            return view('popups.user_ratings',$data);
+        else
+            return view('popups.details',$data);
+    }
     //does something with restaurant tags, can't tell what
     public function getTopTen() {
         $tags = \App\Http\Models\Tag::where('is_active', 1)->get();

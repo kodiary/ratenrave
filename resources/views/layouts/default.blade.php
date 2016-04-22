@@ -22,7 +22,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="{{ asset('assets/js/star-rating.min.js') }}" type="text/javascript"></script>
 
-	<script type='text/javascript' src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
+	
 	<script type='text/javascript' src="{{ asset('assets/js/html5.js') }}"></script>
 	<script type='text/javascript' src="{{ asset('assets/js/main.js') }}"></script>
 	<script type='text/javascript' src="{{ asset('assets/js/modernizr-2.6.2.min.js') }}"></script>
@@ -73,67 +73,11 @@
     </div>
     
     <div class="view-popup-wrapper" id="adiv" style="display:none;">
-    	<div class="view-popup">
-    		<div class="close">x</div>
-    		<div class="img_detail col-md-4 col-sm-6">
-    			<img alt="" class="img-full" src="{{ asset('assets/images/double-1.jpg') }}">
-    		</div><!-- .img_detail -->
-    
-    		<div class="detail_rating col-md-8 col-sm-6">
-    			<h3 class="product_title">Product</h3>
-    			<div class="description">
-    				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mollis nibh vel est maximus, ultricies semper justo tristique. Sed vitae tempus lectus. Phasellus placerat vel sem eu fermentum. Aliquam viverra nulla sapien, nec fringilla magna accumsan non. Donec eget risus lectus. Nulla accumsan efficitur nisl ac efficitur. Etiam gravida justo urna, vel feugiat erat aliquam quis. Sed sed elementum arcu, pretium finibus risus. Phasellus tempus magna a magna rut... 
-    			</div><!-- .description  -->
-    
-    			<div class="detail-ratings clearfix">
-    				<div class="ratings">
-    					<span>food</span>
-    					<img src="{{ asset('assets/images/stars.png') }}">
-    				</div>
-    				<div class="ratings">
-    					<span>color</span>
-    					<img src="{{ asset('assets/images/stars.png') }}">
-    				</div>
-    				<div class="ratings">
-    					<span>size</span>
-    					<img src="{{ asset('assets/images/stars.png') }}">
-    				</div>
-    				<div class="ratings">
-    					<span>taste</span>
-    					<img src="{{ asset('assets/images/stars.png') }}">
-    				</div>
-    			</div><!-- .detail-ratings  -->
-    		</div><!-- .detail_rating  -->
-    		</div><!-- .view-popup-->
+    	<!-- .view-popup-->
     </div><!-- .view-popup-wrapper -->
     
     		<div class="review_rating_wrapper" id="bdiv" style="display:none;">
-    			<div class="review_rating">
-    				<div class="close">x</div>
-    				<h3 class="product_title">Product</h3>
-    				<div class="detail-ratings clearfix">
-    					<div class="ratings">
-    						<span>Food</span>
-    						<img src="{{ asset('assets/images/stars.png') }}">
-    					</div>
-    					<div class="ratings">
-    						<span>Color</span>
-    						<img src="{{ asset('assets/images/stars.png') }}">
-    					</div>
-    					<div class="ratings">
-    						<span>Size</span>
-    						<img src="{{ asset('assets/images/stars.png') }}">
-    					</div>
-    					<div class="ratings">
-    						<span>Taste</span>
-    						<img src="{{ asset('assets/images/stars.png') }}">
-    					</div>
-    					<div class="ratings">
-    						<span>Style</span>
-    						<img src="{{ asset('assets/images/stars.png') }}">
-    					</div>
-    				</div><!-- .detail_ratings  -->
-    			</div><!-- .review_rating  -->
+    			<!-- .review_rating  -->
     		</div><!-- .review_rating_wrapper -->
     
   

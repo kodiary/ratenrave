@@ -9,6 +9,8 @@ Route::get('/contactus',                                            'HomeControl
 Route::get('/restaurants',                                          'HomeController@allRestaurants');
 Route::get('/home/debugmode',                                       'HomeController@debugmode');
 
+Route::post('/college/getdetail/{cid}/',                        'HomeController@getDetails');
+
 Route::resource('/restaurants/signup',                              'HomeController@signupRestaurants');
 Route::get('/restaurants/{searchTerm}',                             'HomeController@searchRestaurants');
 Route::post('/search/restaurants/ajax',                             'HomeController@searchRestaurantsAjax');

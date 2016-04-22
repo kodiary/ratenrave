@@ -3,9 +3,9 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Restaurants extends BaseModel {
+class Products extends BaseModel {
 
-    protected $table = 'restaurants';
+    protected $table = 'products';
     protected $primaryKey = 'id';
     public $timestamps = false;
 

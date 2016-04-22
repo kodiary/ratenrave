@@ -1,4 +1,9 @@
 jQuery(document).ready(function($){
+ 
+    $(document).on('click','.close',function() {
+     
+  $(this).parent().parent().hide( "slow" );
+});
 	/*$(window).load("bind", function(){*/
 
 		/*** Masonary ***/
@@ -66,12 +71,12 @@ jQuery(document).ready(function($){
 	});
 
 
-	/*** Wow and animate ***/
+/*
 	$(window).load("bind", function(){
 	$('.grid li').addClass('wow animated fadeInUp');
 	$('.resturant-wrapper').addClass('wow animated fadeInUp');
 
-   //**** Wow animation   ****//
+
    wow = new WOW(
    {
       boxClass:     'wow',      // default
@@ -83,16 +88,14 @@ jQuery(document).ready(function($){
   )
    wow.init();
 });
-
+*/
 /** view popup **/
 $( ".view a" ).click(function() {
   $( "#adiv" ).show( "slow" );
 });
 
 
-$( ".close" ).click(function() {
-  $( "#adiv" ).hide( "slow" );
-});
+
 
 
 /** Review popup **/
@@ -101,9 +104,7 @@ $( ".review a" ).click(function() {
 });
 
 
-$( ".close" ).click(function() {
-  $( "#bdiv" ).hide( "slow" );
-});
+
 
 $('#input-id').on('rating.clear', function(event) {
     console.log("rating.clear");

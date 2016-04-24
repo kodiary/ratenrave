@@ -55,13 +55,16 @@ class HomeController extends Controller {
         $data['cuisine'] = cuisinelist();
         $data['meta_description'] = "Having great local food delivered helps us all keep up with our busy lives. By connecting you to local restaurants, Didueat makes great food more accessible, opening up more possibilities for food lovers and more business for local small business owners. ";
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
-        $data['colleges'] = \App\Http\Models\Products::whereNotNull('logo')->get();
+        $data['colleges'] = \App\Http\Models\Products::whereNotNull('logo')->paginate(20);
        // $data['top_ten'] = $this->getTopTen();
         $data['query'] = 0;
         $data['count'] = 0;
         //$data['start'] = 0;
         $data['hasMorePage'] = 0;
-        return view('homepage', $data);
+        if(isset($_GET['page']))
+            return view('colleges',$data);
+        else
+            return view('homepage', $data);
     }
     
     public function getDetails($cid)
@@ -455,7 +458,7 @@ class HomeController extends Controller {
         }
         
     }
-
+ 
     //loads contact us view
     function contactus() {
         $data['title'] = 'Contact';

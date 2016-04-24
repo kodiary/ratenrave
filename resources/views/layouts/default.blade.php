@@ -83,5 +83,27 @@
   
 
 </div><!-- #page  -->
+<script>
+$(function(){
+    $(window).scroll(function() {
+   if($(window).scrollTop() + $(window).height() == $(document).height()) {
+    var url  = $('.nxtPage').text();
+    if(url)
+    {
+        $('.nxtPage').remove();
+        
+           $.ajax({
+            url:url,
+            type:'post',
+            success:function(msg)
+            {
+                $('.collegelists').append(msg);
+            }
+           })
+      }
+   }
+});
+})
+</script>
 </body>
 </html>

@@ -3,12 +3,12 @@
     				<div class="col-md-12 col-sm-12">
     					<div class="row">
     						<div class="logo col-md-3 col-sm-5 no-padding">
-    							<a href="index.html" title="Rating" rel="home"><img src="{{ asset('assets/images/logo.png') }}" style="height:55px;" /></a>
+    							<a href="{{url()}}" title="Rating" rel="home"><img src="{{ asset('assets/images/logo.png') }}" style="height:55px;" /></a>
     						</div><!-- .logo -->
     
     						<div class="header_right col-md-9 col-sm-7 no-padding">
     							<div class="search_btn">
-    								<form id="searchForm" name="searchForm" method="post" action="search.html">
+    								<form id="searchForm" name="searchForm" method="post" action="{{url('/college/search/')}}">
     									<input class="search-field" name="search" type="text" value="" maxlength="200" />
     									<input class="search-submit" name="submit" type="submit" value="Search" />
     								</form>

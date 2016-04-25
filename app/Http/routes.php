@@ -11,6 +11,8 @@ Route::get('/home/debugmode',                                       'HomeControl
 
 Route::post('/college/getdetail/{cid}/',                            'HomeController@getDetails');
 Route::resource('/college/loadmore/',                               'HomeController@loadmore');
+Route::get('/college/search/{searchTerm}',                          'HomeController@search');
+
 Route::resource('/restaurants/signup',                              'HomeController@signupRestaurants');
 Route::get('/restaurants/{searchTerm}',                             'HomeController@searchRestaurants');
 Route::post('/search/restaurants/ajax',                             'HomeController@searchRestaurantsAjax');

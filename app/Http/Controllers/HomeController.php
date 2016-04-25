@@ -217,6 +217,26 @@ class HomeController extends Controller {
         }
         return view('restaurants', $data);
     }
+    
+    public function search($serachTerm='')
+    {
+        $data['title'] = 'All Colleges Page';
+        //$data['cuisine'] = cuisinelist();//search active cousines
+        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//search active tags
+        $data['name'] = $searchTerm;
+        $data['description'] = $serachTerm;
+        
+        $data['query'] = \App\Http\Models\Products::searchCollege('', 10, 0);//search 10 restaurants
+        $data['sql'] = \App\Http\Models\Products::searchCollege('', 10, 0, true);//SQL
+        $data['count'] = \App\Http\Models\Products::get();//count restaurants
+        $data['start'] = count($data['query']);
+        $data['searchTerm'] = $searchTerm;
+        $data['hasMorePage'] = 10;
+        if(is_iterable($data['query'])){
+            $data['hasMorePage'] = count(\App\Http\Models\Products::searchCollege('', 10, $data['start']));//remaining restauramts
+        }
+        return view('restaurants', $data);
+    }
 
     /**
      * All Restaurants Lists

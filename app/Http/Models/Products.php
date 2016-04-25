@@ -158,18 +158,18 @@ class Products extends BaseModel {
      * @param $start 
      * @return response
      */
-    public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false, &$count = 0) {
-        $order = " ORDER BY openedRest desc, views desc";//" ORDER BY openedRest desc, distance";
-        $limit = " LIMIT $start, $per_page";
-        $where = "WHERE is_complete = '1'";// AND status = '1'";
-        if (isset($data['minimum']) && $data['minimum'] != "") {
+    public static function searchCollege($data = '', $per_page = 10, $start = 0, $ReturnSQL = false, &$count = 0) {
+        $order = " ORDER BY rating asc";
+        
+        $where = "WHERE is_complete = '0'";// AND status = '1'";
+       /* if (isset($data['minimum']) && $data['minimum'] != "") {
             $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
         }
         if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
             if($data['delivery_type'] != "both"){
                $where .= " AND ".$data['delivery_type']." = 1"; // for both, just do not have any condn here
             }
-        }
+        }*/
 
         if (isset($data['name']) && $data['name'] != "") {
             $where .= " AND name LIKE '%" . Encode($data['name']) . "%'";
@@ -206,6 +206,7 @@ class Products extends BaseModel {
         }
 
         //handles hours of operation
+        /*
         $date = now(true);
         $data['date'] = date("l F j, Y - H:i (g:i A)", $date);
         $DayOfWeek = current_day_of_week($date);
@@ -218,10 +219,11 @@ class Products extends BaseModel {
         $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close != yesterday_open)";
         $openedRestCondn = str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
         $asopenedRest = "IF(".$openedRestCondn.",1,0) as openedRest";
-
+        */
         (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;//why? Because the default will be in kilometers
 
         //handles distance
+        
         $data['radius']=iif(debugmode(), 30, "max_delivery_distance");
         if (!$IsHardcoded && isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
             $SQL = "SELECT *, ( " . $earthRad . " * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance, $asopenedRest FROM restaurants $where HAVING distance <= " . $data['radius'];

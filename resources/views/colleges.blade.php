@@ -30,7 +30,7 @@
     				<h3 class="product_title">{{$college->name}}</h3>
     				<div class="ratings">
     					<span>Ratings</span>
-    					<input id="input-id" type="number" class="rating" min=0 max=5 step=0.5 data-size="lg" >
+    					<!--<input id="input-id" type="number" class="rating" min=0 max=5 step=0.5 data-size="lg" >-->
                         <img src="{{ asset('assets/images/stars.png') }}">
     				</div>				
     			</div>

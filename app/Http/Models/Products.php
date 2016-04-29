@@ -158,18 +158,18 @@ class Products extends BaseModel {
      * @param $start 
      * @return response
      */
-    public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false, &$count = 0) {
-        $order = " ORDER BY openedRest desc, views desc";//" ORDER BY openedRest desc, distance";
-        $limit = " LIMIT $start, $per_page";
-        $where = "WHERE is_complete = '1'";// AND status = '1'";
-        if (isset($data['minimum']) && $data['minimum'] != "") {
+    public static function searchCollege1($data = '', $per_page = 10, $start = 0, $ReturnSQL = false, &$count = 0) {
+        $order = " ORDER BY rating asc";
+        
+        $where = "WHERE is_complete = '0'";// AND status = '1'";
+       /* if (isset($data['minimum']) && $data['minimum'] != "") {
             $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
         }
         if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
             if($data['delivery_type'] != "both"){
                $where .= " AND ".$data['delivery_type']." = 1"; // for both, just do not have any condn here
             }
-        }
+        }*/
 
         if (isset($data['name']) && $data['name'] != "") {
             $where .= " AND name LIKE '%" . Encode($data['name']) . "%'";
@@ -206,9 +206,10 @@ class Products extends BaseModel {
         }
 
         //handles hours of operation
+        
         $date = now(true);
         $data['date'] = date("l F j, Y - H:i (g:i A)", $date);
-        $DayOfWeek = current_day_of_week($date);
+        /*$DayOfWeek = current_day_of_week($date);
         $now = date('H:i:s', $date);
         $Yesterday = current_day_of_week($date - 86400);
         $DeliveryHours = isset($data['delivery_type']) && $data['delivery_type'] == "is_delivery";
@@ -216,31 +217,52 @@ class Products extends BaseModel {
         $close = "close" . iif($DeliveryHours, "_del");
         $hours = " (today_open != today_close AND (today_close > today_open AND today_open < now AND today_close > now) OR (today_close < today_open AND today_open < now)) ";
         $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close != yesterday_open)";
+        
         $openedRestCondn = str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
+        
         $asopenedRest = "IF(".$openedRestCondn.",1,0) as openedRest";
-
+       */
         (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;//why? Because the default will be in kilometers
 
         //handles distance
+        
         $data['radius']=iif(debugmode(), 30, "max_delivery_distance");
         if (!$IsHardcoded && isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
             $SQL = "SELECT *, ( " . $earthRad . " * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance, $asopenedRest FROM restaurants $where HAVING distance <= " . $data['radius'];
         } else {
-            $SQL = "SELECT *, 0 AS distance, $asopenedRest FROM restaurants " . $where;
+            $SQL = "SELECT *, 0 AS distance  FROM products " . $where;
         }
 
         if(!$ReturnSQL) {$count = iterator_count(select_query($SQL));}//get total count
 
-        $asopenedRest2 = $asopenedRest . ', (SELECT COUNT(*) as views FROM `page_views` WHERE page_views.type = "restaurant" AND page_views.target_id= restaurants.id) as views';
-        $SQL = str_replace($asopenedRest, $asopenedRest2, $SQL);
+        //$asopenedRest2 = $asopenedRest . ', (SELECT COUNT(*) as views FROM `page_views` WHERE page_views.type = "restaurant" AND page_views.target_id= restaurants.id) as views';
+        //$SQL = str_replace($asopenedRest, $asopenedRest2, $SQL);
 
         //assemble the final query, with a comment showing which date was used
-        $SQL .= $order . $limit . " -- Using date: " . $data['date'];
+        $SQL .= $order . " -- Using date: " . $data['date'];
         
         if($ReturnSQL){return $SQL;}
         $query = \DB::select(\DB::raw($SQL));
-//        debugprint(json_decode(json_encode($query),true));
+        
+       //var_dump(json_decode(json_encode($query),true));
         return json_decode(json_encode($query),true);
+    }
+    public static  function searchCollege($array)
+    {
+        $where = "logo IS NOT NULL";
+          if (isset($array['name']) && $array['name'] != "") {
+            $where .= " AND name LIKE '%" . Encode($array['name']) . "%'";
+        }
+          if (isset($array['description']) && $array['description'] != "") {
+            $where .= " AND name LIKE '%" . Encode($array['name']) . "%'";
+        }
+        
+        return $items = \DB::table('Products')   
+                        ->selectRaw('*')
+                        ->whereRaw($where)
+                        ->orderBy('name','asc')
+                        ->paginate(20);
+    
     }
 
     //save the restaurant, checking if it was complete before hand, and if it is afterwards

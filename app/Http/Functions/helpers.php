@@ -1770,6 +1770,41 @@
     function cuisinelist(){
         return array('American','Asian','Bagels','BBQ','Breakfast','Burgers','Cafe','Canadian','Caribbean','Chicken','Chinese','Creole','Deli','Desserts','English','Ethiopian','Fast Food','Filipino','Fish and Chips','French','Game/Exotic','German','Greek','Halal','Health Food','Ice Cream','Indian','Irish','Italian','Jamaican','Japanese','Korean','Latin','Malaysian','Mediterranean','Mexican','Middle Eastern','Persian','Pita','Pizza','Polish','Portuguese','Pub','Sandwiches','Seafood','Southern','South Western','Steakhouse','Sushi','Thai','Vegan','Vietnamese','Wings');
     }
+    //to remove sprecial chr and integers
+    function removeexp()
+    {
+        $fac = \App\Http\Models\CollegeFaculties::distinct()->get();
+        foreach($fac as $f)
+        {
+            $f->title = trim(preg_replace('/[^A-Za-z ]/', "", $f->title));
+            \DB::table('college_faculties')
+            ->where('id', $f->id)->update(["title"=>$f->title]);
+           
+        }
+    }
+    
+    function faculties()
+    {
+        $fac = \App\Http\Models\CollegeFaculties::where('title','LIKE','Ten Plus Two%')->distinct()->get();
+        foreach($fac as $f)
+        {
+            //$f->title = trim(preg_replace('/[^A-Za-z ]/', "", $f->title));
+            $uniques[$f->title] = $f;
+            
+        }
+        //var_dump($fac);
+        //die();
+        return $uniques;
+    }
+    function faculties_college($cid)
+    {
+        $facs = \App\Http\Models\CollegeFaculties::where('coll_id',$cid)->get();
+        foreach($facs as $f)
+        {
+            $coll_fac[]=$f->title;
+        }
+        return $coll_fac;
+    }
 
     //table headers
     function TH($data, $name = "", $sort = true){

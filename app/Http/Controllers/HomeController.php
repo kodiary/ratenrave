@@ -5,6 +5,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Models\Newsletter;
 use App\Http\Models\PageViews;
 
+
+
+
 class HomeController extends Controller {
     public function __construct() {
         date_default_timezone_set('America/Toronto');
@@ -67,10 +70,10 @@ class HomeController extends Controller {
             return view('homepage', $data);
     }
     
-    public function getDetails($cid)
+    public function getDetails($slug)
     {
         
-        $data['college'] = \App\Http\Models\Products::where('id',$cid)->first();
+        $data['college'] = \App\Http\Models\Products::where('slug',$slug)->first();
         if(isset($_GET['review']))
             return view('popups.user_ratings',$data);
         else
@@ -216,6 +219,28 @@ class HomeController extends Controller {
             $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 10, $data['start']));//remaining restauramts
         }
         return view('restaurants', $data);
+    }
+    
+    public function search()
+    {
+        $data['title'] = 'All Colleges Page';
+        //$data['cuisine'] = cuisinelist();//search active cousines
+        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//search active tags
+        if(isset($_GET['search'])){
+            $data['name'] = $_GET['search'];
+            $data['description'] = $_GET['search'];
+        }
+       // $data['query'] = \App\Http\Models\Products::searchCollege('', 10, 0);//search 10 restaurants
+        $data['colleges'] = \App\Http\Models\Products::searchCollege($data);//SQL
+       // $data['count'] = \App\Http\Models\Products::get();//count restaurants
+        //$data['start'] = count($data['query']);
+        //$data['searchTerm'] = $searchTerm;
+        //$data['hasMorePage'] = 10;
+        //$pagination = $paginator->make($data['sql'], count($data['sql']), 20);
+         if(isset($_GET['page']))
+            return view('colleges',$data);
+        else
+            return view('homepage', $data);
     }
 
     /**

@@ -21,8 +21,8 @@
     
     				</div><!-- .hover-item -->
     				<div class="product_btn">
-    					<div class="view"><a href="javascript:void(0)" onclick="popupload('adiv','{{$college->id}}')">view</a></div>
-    					<div class="review"><a href="javascript:void(0)"onclick="popupload('bdiv','{{$college->id}}')">review</a></div>
+    					<div class="view"><a href="javascript:void(0)" onclick="popupload('adiv','{{$college->slug}}')">view</a></div>
+    					<div class="review"><a href="javascript:void(0)"onclick="popupload('bdiv','{{$college->slug}}')">review</a></div>
     				</div>
     			</div>
     

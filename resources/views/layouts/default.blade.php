@@ -1,13 +1,3 @@
-<?php 
-if($_SERVER['SERVER_NAME'] == 'localhost')
-{
-    $fbpath = $_SERVER['DOCUMENT_ROOT'].'/ratenrave/public/assets/src/Facebook/Facebook.php';
-    
-}
-else
-$fbpath = $_SERVER['DOCUMENT_ROOT'].'/public/assets/src/Facebook/Facebook.php';
-$fbpath = str_replace('//','/',$fbpath);
-include($fbpath);?>
 <!DOCTYPE html>
 
 <html> 

@@ -53,6 +53,7 @@ class HomeController extends Controller {
 
 
     public function index() {
+        
         $data['title'] = 'Home';
         $data['keyword'] = 'Didueat,didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
         $data['cuisine'] = cuisinelist();

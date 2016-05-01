@@ -12,7 +12,7 @@ Route::get('/home/debugmode',                                       'HomeControl
 Route::post('/college/{slug}/',                                     'HomeController@getDetails');
 Route::resource('/college/loadmore/',                               'HomeController@loadmore');
 Route::resource('/college/search/',                                 'HomeController@search');
-Route::resource('/college/info/{id}',                                'CollegeController@collegeInfo');
+//Route::resource('/college/info/{id}',                                'CollegeController@collegeInfo');
 
 Route::resource('/restaurants/signup',                              'HomeController@signupRestaurants');
 Route::get('/restaurants/{searchTerm}',                             'HomeController@searchRestaurants');

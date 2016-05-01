@@ -18,12 +18,48 @@ class FacebookController extends Controller
     
     public function redirect()
     {
-        return Socialite::driver('facebook')->redirect();   
+        return \Socialite::driver('facebook')->redirect();   
     }   
 
     public function callback()
     {
-        // when facebook call us a with token   
+        $user = \Socialite::driver('facebook')->user(); 
+        $arr['fb_id'] = $user->getId();
+        //$arr['nick_name'] = $user->getNickname();
+        $arr['name'] = $user->getName();
+        $arr['email'] = $user->getEmail();
+        $arr['image'] = $user->getAvatar();
+        //var_dump($arr);die();
+        
+        if($arr['fb_id'])
+        {
+            $user_count = \App\Http\Models\Profiles::where('fb_id', $arr['fb_id'])->count();
+            if(!$user_count)
+            {
+                $arr['created_date'] = date('Y-m-d');
+                $add = \App\Http\Models\Profiles::findOrNew(0);
+                $add->populate($arr);
+                $add->save();
+            }
+            else
+            {
+                $user = \App\Http\Models\Profiles::where('fb_id', $arr['fb_id'])->get();
+                $val = $user[0];
+                $add = \App\Http\Models\ProfilesAddresses::findOrNew($val->id);
+                $add->populate($arr);
+                $add->save();
+                
+            }
+            $a = $this->generateSession($arr);
+        }
+        return redirect('/');
+    }
+    public function generateSession($arr)
+    {
+        foreach($arr as $key=>$val)
+        {
+            \Session::put($key, $val);
+        }
     }
     public function index()
     {

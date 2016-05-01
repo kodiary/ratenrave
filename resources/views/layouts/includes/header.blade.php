@@ -1,3 +1,5 @@
+<?php 
+?>
 <div class="header clearfix">
     			<div class="container">
     				<div class="col-md-12 col-sm-12">

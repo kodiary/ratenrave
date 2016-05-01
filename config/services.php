@@ -37,7 +37,7 @@ return [
     'facebook' => [
     'client_id' => '628048797364437',
     'client_secret' => '30317ac55a007831be916081a41f48dc',
-    'redirect' => 'http://localhost/ratenrave/public',
+    'redirect' => 'http://localhost/ratenrave/public/facebook/callback',
 ],
 
 ];

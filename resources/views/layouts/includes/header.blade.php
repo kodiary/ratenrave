@@ -7,9 +7,19 @@
     						<div class="logo col-md-3 col-sm-5 no-padding">
     							<a href="{{url()}}" title="Rating" rel="home"><img src="{{ asset('assets/images/logo.png') }}" style="height:55px;" /></a>
     						</div><!-- .logo -->
-                            <div class="fblogin col-md-3">
-                                <a href="{{url('/facebook/redirect/')}}" title="Login With Facebook" rel="fblogin"><img src="{{ asset('assets/images/fblogin.png') }}" /></a>
+                            <?php if(\Session::get('fb_id'))
+                            {?>
+                            <div class="col-md-3 header_right">
+                                <div class="col-md-10 fb-name">
+                                <?php echo \Session::get('name');?>
+                                </div>
+                                <div class="col-md-2 fb-avatar">
+                                <img src="<?php echo \Session::get('image');?>" />
+                                </div>
+                                
                             </div>
+                            
+                            <?php }?>
     						<div class="header_right col-md-6 col-sm-7 no-padding">
                             <?php
 if(isset($_GET['search'])&& $_GET['search']!="")
@@ -24,6 +34,8 @@ if(isset($_GET['search'])&& $_GET['search']!="")
     							</div><!-- .search_btn  -->
     
     					</div><!-- .header_right  -->
+                        
+                        
     				</div><!-- .row  -->
     			</div><!-- .col  -->
     		</div><!-- .container  -->

@@ -1,4 +1,11 @@
 <ul>
+    <?php if(!\Session::get('fb_id'))
+                            {?>
+    <li class="blue-bg">
+        <a href="{{url('/facebook/redirect/')}}" title="Login With Facebook" rel="fblogin"><i class="fa fa-facebook"></i><h2>Login with facebook</h2></a>
+                            
+    </li>
+    <?php }?>
     <li class="act">
         <a>
         <i class="fa fa-search"></i>

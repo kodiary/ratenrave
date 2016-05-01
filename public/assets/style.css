@@ -101,8 +101,11 @@ li {
 
 .header_right {
 	margin-top: 10px;
+    float:right!important;
 }
-
+.header_right img{max-width:100%;border-radius:80px;}
+.fb-avatar{padding-left:0!important;padding-right:0!important;}
+.fb-name{font-weight:bold;text-align: right;margin-top:10px;}
 .search_btn {
 	float: right;
 }
@@ -914,5 +917,7 @@ div.selector, div.checker, div.button, div.radio, div.uploader {
     width: 39%;
     vertical-align: top;
 }
+.blue-bg{background: #3B5998;}
+.blue-bg a{color:#FFF!important;}
 
 /*** End Style ***/

@@ -8,7 +8,7 @@
     							<a href="{{url()}}" title="Rating" rel="home"><img src="{{ asset('assets/images/logo.png') }}" style="height:55px;" /></a>
     						</div><!-- .logo -->
                             <div class="fblogin col-md-3">
-                                <a href="" title="Login With Facebook" rel="fblogin"><img src="{{ asset('assets/images/fblogin.png') }}" /></a>
+                                <a href="{{url('/facebook/redirect/')}}" title="Login With Facebook" rel="fblogin"><img src="{{ asset('assets/images/fblogin.png') }}" /></a>
                             </div>
     						<div class="header_right col-md-6 col-sm-7 no-padding">
                             <?php

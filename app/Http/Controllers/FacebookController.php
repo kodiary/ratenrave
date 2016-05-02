@@ -29,7 +29,29 @@ class FacebookController extends Controller
         $arr['name'] = $user->getName();
         $arr['email'] = $user->getEmail();
         $arr['image'] = $user->getAvatar();
-        //var_dump($arr);die();
+        $arr['raw'] = $user->getRaw();
+        
+       
+  // response is of the format "access_token=AAAC..."
+  /*$access_token = 'EAAI7NQF38NUBACYAqiFsCvVLJ2yn9xQ6e21DzZBxTVN7ScgTSCUxnNtVKRD3Os6NzdB43ZBRUqF9zySop47Y2B2FOmOBrdeoUwFKVlIH90Gyag9eb03F6dZA7DMO51FF7djKqpTjMQBZBKbqCiIoSZAc1zKZA14P8ZD';
+
+  // run fql query
+  echo $fql_query_url = 'https://graph.facebook.com/'
+    . 'fql?q=SELECT+education+FROM+user+WHERE+uid=me()'
+    . '&access_token=' . $access_token;die();
+  $fql_query_result = file_get_contents($fql_query_url);
+  $fql_query_obj = json_decode($fql_query_result, true);
+
+  // display results of fql query
+  echo '<pre>';
+  print_r("query results:");
+  print_r($fql_query_obj);
+  echo '</pre>';
+*/
+
+        
+        var_dump($user);
+        die();
         
         if($arr['fb_id'])
         {

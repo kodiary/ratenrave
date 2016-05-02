@@ -47,11 +47,11 @@ class FacebookController extends Controller
   print_r("query results:");
   print_r($fql_query_obj);
   echo '</pre>';
-*/
+
 
         
         var_dump($user);
-        die();
+        die();*/
         
         if($arr['fb_id'])
         {

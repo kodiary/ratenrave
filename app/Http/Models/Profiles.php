@@ -16,22 +16,7 @@ class Profiles extends BaseModel {
      */
 
     public function populate($data,$addlogo = false) {
-        $cells = array('profile_type', 'restaurant_id', 'name', 'email', 'phone' => 'phone', 'mobile' => 'phone', 'password' => 'password', 'subscribed', 'ip_address', 'browser_name', 'browser_version', 'browser_platform', 'gmt', 'status');
-        
-        if((isset($data["mobile"]) && phonenumber(isset($data["mobile"])) && (!isset($data["phone"]) || !phonenumber($data["phone"]))) ){
-            $data["phone"] = $data["mobile"];
-        }
-        
-        if($addlogo){
-            array_push($cells,'photo');
-        }
-
-        $browser_info = getBrowser();
-        $data['ip_address'] = get_client_ip_server();
-        $data['browser_name'] = $browser_info['name'];
-        $data['browser_version'] = $browser_info['version'];
-        $data['browser_platform'] = $browser_info['platform'];
-        if(!$this->profile_type){$this->profile_type = 2;}
+        $cells = array('fb_id', 'name', 'email', 'image','edu1','edu2','edu3','edu4','edu5','created_at','updated_at');
         $this->copycells($cells, $data);
     }
 

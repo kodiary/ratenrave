@@ -46,18 +46,13 @@ class VerifyCsrfToken
      */
     public function handle($request, Closure $next)
     {
-        return $this->addCookieToResponse($request, $next($request));
-/*
-        if ($this->isReading($request) || $this->shouldPassThrough($request) || $this->tokensMatch($request) || $request->ajax()) {
+        if ($this->isReading($request) || $this->shouldPassThrough($request) || $this->tokensMatch($request)) {
             return $this->addCookieToResponse($request, $next($request));
         }
 
         throw new TokenMismatchException;
-*/
     }
 
-	
-	
     /**
      * Determine if the request has a URI that should pass through CSRF verification.
      *

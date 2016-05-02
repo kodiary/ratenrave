@@ -9,7 +9,6 @@ Route::get('/contactus',                                            'HomeControl
 Route::get('/restaurants',                                          'HomeController@allRestaurants');
 Route::get('/home/debugmode',                                       'HomeController@debugmode');
 
-
 Route::resource('/college/loadmore/',                               'HomeController@loadmore');
 Route::resource('/college/search/',                                 'HomeController@search');
 Route::get('/college/info/{id}/',                                   'CollegeController@collegeInfo');
@@ -207,6 +206,9 @@ Route::post('reviews/users/get',                                    'UserReviews
 
 Route::post('user/ajax_register',                                   'UsersController@ajax_register');
 Route::resource('user/json_data',                                   'UsersController@json_data');
+
+Route::get('facebook/redirect', 'FacebookController@redirect');
+Route::get('facebook/callback', 'FacebookController@callback');
 
 Route::any('admin/(:any)/add/(:any?)', function($controller, $params = null) {
     return Controller::call('admin.' . $controller . '@edit', (array) $params);

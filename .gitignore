@@ -54,7 +54,6 @@ storage/framework/views/*
 *.bak
 nbproject
 public/royslog.txt
-config/app.php
 .idea/misc.xml
 .idea/misc.xml
 *.xml
@@ -63,7 +62,6 @@ config/app.php
 laravel-session-values.txt
 Jan30,2016_latestdb.sql
 
-vendor/symfony/debug/Debug.php
 *.tar
 didueat.tar.gz
 
@@ -73,7 +71,6 @@ composer.lock
 public/paul.log
 .env
 config/mail.php
-config/app.php
 .env
 *.env
 public/debugmode.ip

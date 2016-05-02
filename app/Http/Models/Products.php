@@ -236,12 +236,27 @@ class Products extends BaseModel {
             $where .= " AND name LIKE '%" . Encode($array['name']) . "%'";
         }
           if (isset($array['description']) && $array['description'] != "") {
-            $where .= " AND name LIKE '%" . Encode($array['name']) . "%'";
+            $where .= " AND description LIKE '%" . Encode($array['description']) . "%'";
         }
         
         return $items = \DB::table('Products')   
                         ->selectRaw('*')
+                        ->distinct()
                         ->whereRaw($where)
+                        /*
+                        ->leftJoin('college_faculties', function ($join) {
+                                $join->on('products.id', '=', 'college_faculties.coll_id')
+                                ->where(function($query){
+                                    $query->where('college_faculties.title','LIKE',\DB::raw("'Ten Plus Two Science%'"))
+                                    ->Where('college_faculties.title','LIKE',\DB::raw("'Ten Plus Two Management%'"));
+                                });
+                                //->orwhere('college_faculties.title','LIKE',\DB::raw("'Ten Plus Two Science%'"))
+                                //->orwhere('college_faculties.title','LIKE',\DB::raw("'Ten Plus Two Management%'"));
+                                
+                                //->where('college_faculties.title1','LIKE','Ten Plus Two Management%');
+                               
+                            })
+                        */
                         ->orderBy('name','asc')
                         ->paginate(20);
     

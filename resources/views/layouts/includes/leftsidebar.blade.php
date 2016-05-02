@@ -17,12 +17,13 @@
             <i class=""></i>
             <h2>Faculties</h2>
 			<div class="sidebar-filter" id="tog" style="display:block;">
-            <?php // /App/Http/Model/CollegeFaculties::where()->get();?>
+            <?php $faculties = faculties();?>
                 <h3>Availability</h3>
-				<div class="checkbox-list">
-					<label><div class="checker"><span><input type="checkbox"></span></div> Not Available (3)</label>
-					<label><div class="checker"><span><input type="checkbox"></span></div> In Stock (26)</label>
-				</div>
+                	<div class="checkbox-list">
+                <?php foreach($faculties as $fac){?>
+                    <label><div class="checker"><span><input type="checkbox"></span></div><?php echo $fac->title;?></label>
+                <?php }?>
+			</div>
                 <h3>Price</h3>
 				<p>
 					<label for="amount">Range:</label>

@@ -11,7 +11,7 @@ class CollegeFaculties extends BaseModel {
 
     public function populate($data) {
         $cells = array('id', 'title', 'coll_id', 'cost', 'intake');
-        //$this->copycells($cells, $data);
+        $this->copycells($cells, $data);
     }
 
     public static function insertView($id = 0, $type = "") {

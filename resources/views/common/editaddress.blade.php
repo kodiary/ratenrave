@@ -47,7 +47,7 @@
     @if(isset($GLOBALS['thisIdentity']))
         <div class="form-group">
             <div class="col-sm-12">
-                <p class="">If the restaurant's address needs changing, please <a href="mailto:info@didueat.ca?subject=Address%20Change%20On%20Didu%20Eat&amp;body=Please Update the Address as Follows:%0A%0A
+                <p class="">If the College's address needs changing, please <a href="mailto:info@kodiary.com?subject=Address%20Change%20On%20Didu%20Eat&amp;body=Please Update the Address as Follows:%0A%0A
 {{ $GLOBALS['thisIdentity'] }}
                             %0A%0A
                             Full Updated Address:
@@ -135,7 +135,7 @@
 <?php }?>
     <INPUT TYPE="HIDDEN" NAME="GUID" VALUE="{{ $GUID }}">
     @if($is_disabled)
-        <input type="text" id="formatted_address" disabled name="formatted_address{{ $GUID }}"
+        <input type="text" id="formatted_address"  name="formatted_address{{ $GUID }}"
                class="form-control"
                value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" />
     @else
@@ -151,7 +151,7 @@
                 echo old('formatted_address');
                 //} else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
             } else if (isset($addresse_detail->address)) {
-                $country = "Canada";// select_field("countries", "id", $addresse_detail->country, "name");
+                $country = "Nepal";// select_field("countries", "id", $addresse_detail->country, "name");
                 //echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
                 echo $addresse_detail->address;
             }
@@ -161,12 +161,6 @@
 </div>
 <?= newrow(); ?>
 
-
-<div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >
-    <?= newrow($new, $aptUnit, "", false, 5); ?>
-    <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
-           value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
-        <?= newrow(); ?>
 
 @if($mini)
     <?php echo newrow($new, " ", "", false, 9);
@@ -238,12 +232,12 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
 @else
     <?php //handle initializing the autocomplete
         if (!isset($_GET['route'])) {
-            includeJS(url("assets/global/scripts/provinces.js"));
+            includeJS(url("assets/js/provinces.js"));
             if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
                 //echo "<script>initAutocomplete();</script>";
             }
         } else {
-            includeJS(url("assets/global/scripts/provinces.js"));
+            includeJS(url("assets/js/provinces.js"));
             if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
                 echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
             }

@@ -18,7 +18,7 @@
     }
     
     if(isset($restaurant->name)){
-         $GLOBALS['thisIdentity']="Restaurant%20Name:%20%20%20".$restaurant->name."%20%20(Restaurant ID:%20".Session::get('session_restaurant_id').",%20Profile ID:%20".Session::get('session_ID').")";
+         $GLOBALS['thisIdentity']="College%20Name:%20%20%20".$restaurant->name."%20%20(College ID:%20".Session::get('session_restaurant_id').",%20Profile ID:%20".Session::get('session_ID').")";
     }
 
     $alts = array(
@@ -68,35 +68,39 @@ echo '<DIV id="cuisinelist">';
 echo newrow($new, "Faculties", "", true, 9, '<br>');
 echo '<input name="cuisines" type="hidden" /><div class="row">';
 $cuisineExpl = faculties_college($restaurant->id);
-
-/*
-if (isset($restaurant->cuisine)) {
-    $cuisineExpl = explode(",", $restaurant->cuisine);
-}
-*/
-//var_dump($cuisine_list); die();
 $cnt = 0;
-$cuisinesChkd = 0;
-$cuisineListA = $cuisine_list;
-//sort($cuisineListA);
-foreach ($cuisine_list as $name) {
-    
-    echo "<div class='cuisineCB col-sm-6 col-xs-6'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name->title . "'";
-    if (isset($cuisineExpl)) {
-        if (in_array($name->title, $cuisineExpl)) {
-            echo " checked";
-            $cuisinesChkd++;
-        }
-    }
-    echo " />" . $name->title . "<span class='c-indicator'></span></LABEL></div>";
-    $cnt++;
-}
 
-echo '</div><DIV STYLE="color: red; display: none;" ID="cousine-error">You must select at least one cuisine in order to continue. You may make adjustments later.</DIV><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div></div>';
+$cuisineListA = $cuisine_list;
+if(count($cuisine_list)>0)
+{
+    foreach ($cuisine_list as $name) {
+        $style="style='display:none'";
+        echo "<div class='cuisineCB col-sm-12 col-xs-12'>
+                <label class='c-input c-checkbox faculty'>
+                    <input  name='faculties[]' type='checkbox' value='" . $name->title . "'";
+                        if (isset($cuisineExpl)&& count($cuisineExpl)>0) {
+                            if (in_array($name->title, $cuisineExpl)) {
+                                echo " checked";
+                                $style="";
+                            }
+                        }
+                    echo " />" . $name->title . "<span class='c-indicator'></span>
+                </label>
+                <div class='more_fac' $style>
+                <label>Cost</label><input type='text' placeholder='Total cost' name='cost[]' value='".get_data('cost',$name->title,$restaurant->id)."' />
+                <label>Intake</label><input type='text' placeholder='No of intake' name='intake[]' value='".get_data('intake',$name->title,$restaurant->id)."' />
+                
+                </div>
+            </div>";
+            
+        $cnt++;
+    }
+}
+//echo '</div><DIV STYLE="color: red; display: none;" ID="cousine-error">You must select at least one Faculty in order to continue. You may make adjustments later.</DIV><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div></div>';
 
 if(!$minimum && isset($restaurant->id)){
         echo newrow($new, "Logo", "", "", 7);
-        $logoname = 'assets/images/restaurants/'. $restaurant->id .'/small-' . $restaurant->logo;
+        $logoname = 'assets/images/colleges/'.$restaurant->logo;
         ?>
         <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg" title="{{ $alts["browse"] }}">Browse</a><div id="browseMsg" class="label smRd"></div>
 
@@ -113,12 +117,12 @@ if(!$minimum && isset($restaurant->id)){
                     <!-- <span id="fullSize" class="smallT"></span> -->
         </div>
     </div></div>
-    <div class="form-group row editaddress ">
+    <!--div class="form-group row editaddress ">
         <label id="import_csv" class="col-md-3 text-md-right">Import Menu CSV</label>
         <div class="col-md-7">
             <input type="file" name="import_csv" class="form-control" />
         </div>
-    </div>
+    </div-->
  
     <?= newrow($new, "", "", "", 12, true);?>
         <hr class="m-y-1" align="center"/>
@@ -127,4 +131,53 @@ if(!$minimum && isset($restaurant->id)){
     <?= newrow();
 }
 ?>
+<script>
+$(function(){
+    ajaxuploadbtn('uploadbtn');
+    $('.faculty :checkbox').click(function(){
+      
+        if($(this).is(':checked')){
+          $(this).parent().parent().find('.more_fac').show();
+            }
+        else
+            $(this).parent().parent().find('.more_fac').hide();
+    })
+})
+            function ajaxuploadbtn(button_id) {
+        var button = $('#' + button_id), interval;
+        var token = $('#resturantForm input[name=_token]').val();
+        act =   '{{url("college/uploadimg/restaurant")}}';
+        new AjaxUpload(button, {
+            action: act,
+            name: 'myfile',
+            data: {'_token': token, 'setSize': 'No'},
+            onSubmit: function (file, ext) {
+                button.text('Uploading...');
+                this.disable();
+                interval = window.setInterval(function () {
+                    var text = button.text();
+                    if (text.length < 13) {
+                        button.text(text + '.');
+                    } else {
+                        button.text('Uploading...');
+                    }
+                }, 200);
+            },
+            onComplete: function (file, response) {
+                //alert(file+":"+ response);
+                var resp = response.split('___');
+                var path = resp[0];
+                var img = resp[1];
+                
+                document.getElementById('restLogoTemp').value = path;
+                window.clearInterval(interval);
+                        document.getElementById(button_id).style.display="none";
+                        $('#picture').attr('src', "{{ asset('assets/images/spacer.gif') }}");
+                        document.getElementById('browseMsg').innerHTML="<img src='{{ asset('assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>Click Save to Finish Uploading</span>";
+                this.enable();
+                $('#hiddenLogo').val(img);
+            }
+        });
+    }
+</script>
 

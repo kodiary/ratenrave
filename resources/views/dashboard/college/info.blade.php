@@ -18,7 +18,7 @@
                     }
                 ?>
 
-                {!! Form::open(array('url' => 'restaurant/info', 'onsubmit' => 'return validateFn(this)', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
+                {!! Form::open(array('onsubmit' => 'return validateFn(this)', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
 
                     <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
 
@@ -77,6 +77,7 @@
     <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
     <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
     <script src="{{asset('assets/js/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('assets/js/upload.js')}}"></script>
     <script type="text/javascript">
              CKEDITOR.replace( 'messageArea',
              {
@@ -85,8 +86,5 @@
               
               })
     </script> 
-    <SCRIPT>
-        validateform("resturantForm", {phone: "phone required"});
-        
-    </SCRIPT>
+   
 @stop

@@ -17,7 +17,7 @@
 	<link rel='stylesheet' id='animate-css'  href='css/animate.css' type='text/css' media='all' />
 	
 	<!--Rating -->
-	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	
 	<link href="{{ asset('assets/css/star-rating.min.css') }}" media="all" rel="stylesheet" type="text/css" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="{{ asset('assets/js/star-rating.min.js') }}" type="text/javascript"></script>

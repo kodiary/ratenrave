@@ -14,7 +14,7 @@ class CollegeController extends Controller {
      * @return redirect
      */
     public function __construct() {
-        date_default_timezone_set('America/Toronto');
+        date_default_timezone_set('Asia/Katmandu');
         $this->beforeFilter(function () {
             //initialize("restaurants");
         });
@@ -163,13 +163,17 @@ class CollegeController extends Controller {
      */
     public function collegeInfo($id = 0) {
        
-        //$post = \Input::all();
+      
+            $post = \Input::all();
+
+            //die();
         
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if(!isset($post['id'])){$post['id']=$id;}
             if (!isset($post['restname']) || empty($post['restname'])) {
-                return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
+                return $this->failure("[Restaurant Name] field is missing!", 'college/info/' . $post['id']);
             }
+            
             /*if (!isset($post['country']) || empty($post['country'])) {
                 return $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
             }
@@ -183,7 +187,7 @@ class CollegeController extends Controller {
             try {
                 $update=$post;
                 $addlogo='';
-                $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
+                $ob = \App\Http\Models\Products::findOrNew($post['id']);
 
                 // logo update will not work until after a restaurant is signed up
                 if (isset($post['restLogoTemp']) && $post['restLogoTemp'] != '') {
@@ -191,11 +195,11 @@ class CollegeController extends Controller {
                     $ext = strtolower(end($im));
                     $newName=$ob->slug.".".$ext;
     
-                    $destinationPath = public_path('assets/images/restaurants/'.urldecode($post['id']));
+                    $destinationPath = public_path('assets/images/colleges/');
                     //$imgVs=getimagesize($destinationPath."/".$post['logo']);
     
                     if (!file_exists($destinationPath)) {
-                        mkdir('assets/images/restaurants/' . $post['id'], 0777, true);
+                        mkdir('assets/images/colleges/', 0777, true);
                     } else{
                         // rename existing images with timestamp, if they exist,
                         $oldImgExpl=explode(".",$ob->logo);
@@ -215,7 +219,7 @@ class CollegeController extends Controller {
                     // use for copying and saving (can't use move_uploaded_file() because jQuery uploads it before php is called)
                     $thisresult=copy($post['restLogoTemp'],$destinationPath.'/'.$newName);
                     
-                    $sizes = ['assets/images/restaurants/' . urldecode($post['id']) . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/small-' => MED_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/big-' => BIG_SQ];
+                    $sizes = ['assets/images/colleges/icon-' => TINY_THUMB, 'assets/images/colleges/small-' => MED_THUMB, 'assets/images/colleges/big-' => BIG_SQ];
 
 
                     copyimages($sizes, $filename, $newName, true);
@@ -232,22 +236,14 @@ class CollegeController extends Controller {
                 }
 
                 //copy fields from post to array being sent to the database
-                $Fields = array("email", "apartment", "phone", "description", "city", "country", "tags", "postal_code", "cuisine" => "cuisines", "province", "address" => "formatted_address", "formatted_address" => "formatted_addressForDB");
+                $Fields = array("email", "website","phone", "description", "address");
                 foreach($Fields as $key => $value){
                     if(is_numeric($key)){
                         $key = $value;
                     }
                     if(isset($post[$value])) {$update[$key] = $post[$value];}
                 }
-                if(!isset($post["payment_methods"])){$post["payment_methods"] = 0;}
-                $update['payment_methods'] = $post["payment_methods"];
-                $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
-                $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
-                $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
-                $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
-                $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
-                $update['initialReg'] = 0; // only true after initial registration
-
+                
                 if(isset($update["claim"]) && $update["claim"]){
                     $update = array_filter($update);//remove empties
                 }
@@ -260,26 +256,20 @@ class CollegeController extends Controller {
                 if(!$post['id']){
                     $post['id'] = $ob->id;
                 }
-                
-// add first category
-
-               if($ob->id){
-                    // now add first category
-                    $this->saveCat($ob->id, "Main", 1); // default category is Main
-               }
-                // first delete all existing cuisines for this restaurant in cuisines table, then add new ones
-                $restCuisine_ids = \App\Http\Models\Cuisines::where('restID', $post['id'])->get();
+               
+                // first delete all existing faculties for this college in college_faculties table, then add new ones
+                $restCuisine_ids = \App\Http\Models\CollegeFaculties::where('coll_id', $post['id'])->get();
                 foreach ($restCuisine_ids as $c) {
-                    \App\Http\Models\Cuisines::where('id', $c->id)->delete();
+                    \App\Http\Models\CollegeFaculties::where('id', $c->id)->delete();
                 }
                 
-                // add cuisines separately to table, with foreign key restID
-                $cuisinesExpl = explode(",",$post['cuisines']);
-                $cuisinesExplCnt=count($cuisinesExpl);
-                for($i=0;$i<$cuisinesExplCnt;$i++){
-                    \App\Http\Models\Cuisines::makenew(array('restID' => $post['id'], 'cuisine' => $cuisinesExpl[$i]));
+                // add faculties separately to table, with foreign key coll_id
+                foreach($post['faculties'] as $k=>$v)
+                {
+                    \App\Http\Models\CollegeFaculties::makenew(array('coll_id' => $id, 'title' => $v, 'cost'=>$post['cost'][$k],'intake'=>$post['intake'][$k]));
                 }
-
+                
+                /*
                 if($DoProfile){//check for missing data
                     foreach(array("name", "email", "password") as $field){
                         if(!isset($post[$field]) || !$post[$field]){
@@ -294,14 +284,14 @@ class CollegeController extends Controller {
                     //$update = \App\Http\Models\Profiles::makenew($update); $update = login($update);
                     $this->registeruser("RestaurantController@restaurantInfo", $update, 2, $restaurant_id, false, read("id"), true);
                 }
-
+                */
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
-                if($ReturnData){return $ob;}
+                //if($ReturnData){return $ob;}
                 if(isset($_FILES['import_csv']) && $_FILES['import_csv']['name'])
                 $this->import_csv($id,$_FILES['import_csv']);
-                return $this->success(iif($isnowopen, "Your restaurant is now open", "Restaurant Profile Has Been Updated"), 'restaurant/info/' . $post['id']);
+                return $this->success(iif($isnowopen, "", "College Profile Has Been Updated"), 'college/info/' . $post['id']);
             } catch (\Exception $e) {
-                return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
+                return $this->failure(handleexception($e), 'college/info/' . $post['id']);
             }
             
         } else {
@@ -497,7 +487,7 @@ class CollegeController extends Controller {
 
     //handle image uploading and thumbnail generation
     public function uploadimg($type = '', $setSize = true) {
-        //echo "test";die();
+       
         
         if(isset($_REQUEST['setSize']) && $_REQUEST['setSize'] == "No"){
            $setSize=false;
@@ -514,8 +504,10 @@ class CollegeController extends Controller {
             ($setSize)? $sizes=true : $sizes=false; // use false if thumbs will be created when page is saved
             
             if ($type == 'restaurant') {
+                
                 $RestaurantID = read("restaurant_id");
-                $path = 'assets/images/restaurants/' . $RestaurantID;
+                $path = 'assets/images/colleges/';
+                $sizes = false;
 //                edit_database("restaurants", "id", $RestaurantID, array("logo" => $file));  // added in restaurantInfo()
             } else if ($type == 'user') {
                 $path = 'assets/images/users/' . read("id");

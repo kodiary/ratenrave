@@ -1786,24 +1786,39 @@
     function faculties()
     {
         $fac = \App\Http\Models\CollegeFaculties::where('title','LIKE','Ten Plus Two%')->distinct()->get();
-        foreach($fac as $f)
-        {
-            //$f->title = trim(preg_replace('/[^A-Za-z ]/', "", $f->title));
-            $uniques[$f->title] = $f;
+        if($fac){
+            foreach($fac as $f)
+            {
+                //$f->title = trim(preg_replace('/[^A-Za-z ]/', "", $f->title));
+                $uniques[$f->title] = $f;
+                
+            }
             
+            return $uniques;
         }
-        //var_dump($fac);
-        //die();
-        return $uniques;
+        else
+            return false;
     }
     function faculties_college($cid)
     {
-        $facs = \App\Http\Models\CollegeFaculties::where('coll_id',$cid)->get();
-        foreach($facs as $f)
+        $coll_fac = array();
+        if($facs = \App\Http\Models\CollegeFaculties::where('coll_id',$cid)->get())
         {
-            $coll_fac[]=$f->title;
+            foreach($facs as $f)
+            {
+                $coll_fac[]=$f->title;
+            }
+            return $coll_fac;
         }
-        return $coll_fac;
+        else
+            return $coll_fac;
+    }
+    function get_data($type, $title, $id)
+    {
+        if($facs = \App\Http\Models\CollegeFaculties::where('coll_id',$id)->where('title',$title)->first())
+            return $facs->$type;
+        else
+            return "";
     }
 
     //table headers

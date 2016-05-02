@@ -15,7 +15,7 @@ class Products extends BaseModel {
      */
     public function populate($data,$addlogo = false) {
         $use_delivery_hours = !isset($data["samehours"]);//update $use_delivery_hours in dashboard/restaurant/hours.blade.php if this policy changes
-        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'apartment', 'city' => "ucfirst", 'province' => "ucfirst", 'country' => "ucfirst", 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform','initialReg', 'payment_methods', 'aprox_time', 'uploaded_by');
+        $cells = array('name', 'slug', 'email', 'cuisine', 'phone', 'mobile' => "phone", 'website','address','zone'=>'ucfirst' , 'district' => "ucfirst", 'country' => "ucfirst", 'latitude', 'longitude', 'description', 'rating', 'tags','ip_address', 'browser_name', 'browser_version', 'browser_platform','uploaded_by');
         if(!isset($data["open"])){$data["open"] = 0;}
 
         if(!isset($data["max_delivery_distance"]) || !$data["max_delivery_distance"]){$data["max_delivery_distance"] = 5;}
@@ -24,31 +24,13 @@ class Products extends BaseModel {
             array_push($cells,'logo');
         }
         
-        $weekdays = getweekdays();
-        $Fields = array("_open","_close", "_open_del", "_close_del");
-        foreach($weekdays as $day){
-            foreach($Fields as $field){
-                $cells[$day . $field] = "24hr";
-            }
-        }
+      
 
         $this->copycells($cells, $data);
 
-        //This sets delivery times to pickup times
-        if(!$use_delivery_hours) {
-            foreach ($weekdays as $day) {
-                foreach (array("_open", "_close") as $fieldname) {
-                    $srcfield = $day . $fieldname;
-                    if (isset($this->$srcfield)) {
-                        $field = $day . $fieldname . "_del";
-                        $this->$field = $this->$srcfield;
-                    }
-                }
-            }
-        }
 
-        $this->is_complete = $this->restaurant_opens($this);
-        if(!$this->is_complete){$this->open = false;}
+        //$this->is_complete = $this->restaurant_opens($this);
+        //if(!$this->is_complete){$this->open = false;}
     }
 
     //checks if the restaurant is now open, and sends an email to the restaurant if it wasn't open before

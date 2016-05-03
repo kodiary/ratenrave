@@ -29,7 +29,7 @@ class FacebookController extends Controller
         $arr['name'] = $user->getName();
         $arr['email'] = $user->getEmail();
         $arr['image'] = $user->getAvatar();
-        $arr['raw'] = $user->getRaw();
+        //$arr['raw'] = $user->getRaw();
         
        
   // response is of the format "access_token=AAAC..."
@@ -48,10 +48,19 @@ class FacebookController extends Controller
   print_r($fql_query_obj);
   echo '</pre>';
 
-
+*/
         
-        var_dump($user);
-        die();*/
+        
+        $edu = $user->user;
+        $i=0;
+        foreach($edu['education'] as $e)
+        {
+            $i++;
+            if($i<=5)
+            $arr['edu'.$i] = $e['school']['name'];
+            //var_dump($e['school']['name']);
+        }
+        
         
         if($arr['fb_id'])
         {
@@ -65,15 +74,17 @@ class FacebookController extends Controller
             }
             else
             {
+                
                 $user = \App\Http\Models\Profiles::where('fb_id', $arr['fb_id'])->get();
                 $val = $user[0];
-                $add = \App\Http\Models\ProfilesAddresses::findOrNew($val->id);
+                $add = \App\Http\Models\Profiles::findOrNew($val->id);
                 $add->populate($arr);
                 $add->save();
                 
             }
             $a = $this->generateSession($arr);
         }
+        //var_dump($arr);die();
         return redirect('/');
     }
     public function generateSession($arr)

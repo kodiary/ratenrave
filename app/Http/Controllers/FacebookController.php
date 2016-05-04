@@ -82,6 +82,7 @@ class FacebookController extends Controller
                 $add->save();
                 
             }
+            $arr['id'] = $add->id;
             $a = $this->generateSession($arr);
         }
         //var_dump($arr);die();

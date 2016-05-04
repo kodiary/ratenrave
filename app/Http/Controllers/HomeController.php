@@ -767,5 +767,16 @@ class HomeController extends Controller {
         }
 
   }
+  public function submitRate($ID=0)
+  {
+    //die('here');
+    $_POST['user_id'] = \Session::get('id');
+    $add = \App\Http\Models\RatingUsers::findOrNew($ID);
+                        
+                        $add->populate($_POST);
+                        $add->save();
+                        die('here');
+                        //return view('home.faq',$_POST);
+  }
   
 }

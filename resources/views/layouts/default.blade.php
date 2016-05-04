@@ -13,6 +13,7 @@
 	<link rel='stylesheet' id='rating-style-css'  href="{{ asset('assets/style.css') }}" type='text/css' media='all' />
 	<link rel='stylesheet' id='bootstrap-css'  href="{{ asset('assets/css/bootstrap.css') }}" type='text/css' media='all' />
 	<link rel='stylesheet' id='responsive-css'  href="{{ asset('assets/css/responsive.css') }}" type='text/css' media='all' />
+    <link rel='stylesheet' id='responsive-css'  href="{{ asset('assets/css/rating.min.css') }}" type='text/css' media='all' />
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 	<link rel='stylesheet' id='animate-css'  href='css/animate.css' type='text/css' media='all' />
 	
@@ -28,6 +29,8 @@
 	<script type='text/javascript' src="{{ asset('assets/js/modernizr-2.6.2.min.js') }}"></script>
 	<script type='text/javascript' src="{{ asset('assets/js/masonry.pkgd.min.js') }}"></script>
 	<script type='text/javascript' src="{{ asset('assets/js/wow.js') }}"></script>
+    
+    <script src="{{ asset('assets/js/src/rating.js') }}"></script>
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">

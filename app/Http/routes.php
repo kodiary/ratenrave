@@ -37,7 +37,8 @@ Route::post('auth/login/ajax',                                      'Auth\AuthCo
 //Route::get('auth/login',                                          'Auth\AuthController@getLogin');
 Route::post('auth/login',                                           'Auth\AuthController@authenticate');
 Route::get('auth/logout',                                           'Auth\AuthController@getLogout');
-
+Route::get('home/submitRate',               'HomeController@submitRate');
+Route::post('home/submitRate',              'HomeController@submitRate');
 Route::get('home/faq',                                              'HomeController@home2');
 Route::get('home/{type}',                                           'HomeController@home');
 Route::post('home/{type}',                                          'HomeController@home');
@@ -92,6 +93,9 @@ Route::group(['middleware' => ['logged']], function() {
     Route::post('user/addresses/delete/{id}',                       'ProfileAddressesController@addressesDelete')->where('id', '[0-9]+');
     Route::get('restaurant/users/action/{type}/{id}',               'UsersController@usersAction');
     Route::post('restaurant/users/action/{type}/{id}',              'UsersController@usersAction');
+    
+    
+    
     Route::get('user/info',                                         'AdministratorController@dashboard');
     Route::resource('user/images',                                  'UsersController@images');
     Route::resource('restaurant/info',                              'RestaurantController@restaurantInfo');

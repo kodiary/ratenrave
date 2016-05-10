@@ -49,12 +49,13 @@
 
 
 
-<div class="container-fluid">
-    @include('common.alert_messages')
-</div>
+
 
 <div class="container">
 	<div class="content row clearfix">
+        <div class="container-fluid">
+            @include('common.alert_messages')
+        </div>
 		<div class="content_right col-md-9 col-sm-8" >
             @yield('content')
         </div>

@@ -701,7 +701,7 @@ div.selector, div.checker, div.button, div.radio, div.uploader {
     left: 50%;
     margin-left: -200px;
     position: fixed;
-    top: 25%;
+    top: 10%;
     width: 400px;
     border-radius: 3px;
     padding: 15px;

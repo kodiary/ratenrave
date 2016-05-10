@@ -770,13 +770,26 @@ class HomeController extends Controller {
   public function submitRate($ID=0)
   {
     //die('here');
-    $_POST['user_id'] = \Session::get('id');
-    $add = \App\Http\Models\RatingUsers::findOrNew($ID);
+    
+    foreach($_POST as $k=>$v)
+    {
+        $arr['user_id'] = \Session::get('id');
+        $arr['target_id'] = $_POST['target_id'];
+        if(str_replace("rating","",$k) != $k)
+        {
+            $arr['rating_id'] = str_replace("rating","",$k);
+            $arr['rating'] = $v;
+            $arr['comments'] = $_POST['comments'];
+            $add = \App\Http\Models\RatingUsers::findOrNew($ID);
                         
-                        $add->populate($_POST);
+                        $add->populate($arr);
                         $add->save();
-                        die('here');
-                        //return view('home.faq',$_POST);
+                        //die('here');
+        }
+    }
+    //unset($arr);
+    
+        return redirect('/')->with('status', 'Your review has been submitted');
   }
   
 }

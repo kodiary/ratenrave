@@ -44,9 +44,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 .idea/workspace.xml
-public/assets/images/restaurants/*
-public/assets/images/users/*
-*.jpg
 # please stop removing this line!!!!
 storage/framework/views/*
 # please stop removing this line!!!!
@@ -71,8 +68,6 @@ composer.lock
 public/paul.log
 .env
 config/mail.php
-.env
-*.env
 public/debugmode.ip
 app/Http/Controllers/HomeController_backupMarch31.php
 app/Http/Controllers/RestaurantController_backupMarch27.php

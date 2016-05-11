@@ -1,8 +1,12 @@
+<?php if(\Session::get('fb_id'))
+                            {?>
 <div class="review_rating" id="rate_{{ $college->id }}">
+<div class="close">x</div>
     <form action="<?php echo url('/home/submitRate/');?>" method="post">
     <input type="hidden" name="target_id" value="<?php echo $college->id;?>" />
-	<div class="close">x</div>
+	
 	<h3 class="product_title">{{$college->name}}</h3>
+    <hr />
 	<div class="detail-ratings clearfix">		
 	</div><!-- .detail_ratings  -->
     <textarea class="form-control description" name="comments"></textarea>
@@ -91,3 +95,11 @@ function addRatingWidget(shopItem, data) {
     }
     })();
 </script>
+<?php }
+else
+{?>
+    @include('common.fb_login_popup') 
+    <?php
+}
+
+?>

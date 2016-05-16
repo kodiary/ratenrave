@@ -59,7 +59,7 @@ class HomeController extends Controller {
         $data['cuisine'] = cuisinelist();
         $data['meta_description'] = "Having great local food delivered helps us all keep up with our busy lives. By connecting you to local restaurants, Didueat makes great food more accessible, opening up more possibilities for food lovers and more business for local small business owners. ";
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
-        $data['colleges'] = \App\Http\Models\Products::whereNotNull('logo')->paginate(20);
+        $data['colleges'] = \App\Http\Models\Products::paginate(20);
        // $data['top_ten'] = $this->getTopTen();
         $data['query'] = 0;
         $data['count'] = 0;

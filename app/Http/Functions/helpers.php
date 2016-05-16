@@ -1952,4 +1952,12 @@
         }
         return preg_replace('#<' . $Tag . '(.*?)>(.*?)</' . $Tag . '>#is', '', $HTML);
     }
+    
+    function show_img($img)
+    {
+        if(file_exists(asset('assets/images/colleges/'.$img)))
+            return '/college/'.$img;
+        else
+            return "logo.png";
+    }
 ?>

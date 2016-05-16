@@ -94,6 +94,7 @@ $(function(){
     var url  = $('.nxtPage').text();
     if(url)
     {
+        $('.collegelists').append("<img id='loader-img' src='<?php echo asset('assets/images/loader.gif');?>'>");
         $('.nxtPage').remove();
         
            $.ajax({
@@ -101,6 +102,7 @@ $(function(){
             type:'post',
             success:function(msg)
             {
+                $('#loader-img').remove();
                 $('.collegelists').append(msg);
             }
            })

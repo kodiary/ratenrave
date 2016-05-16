@@ -13,6 +13,7 @@ function popupload(div, cid)
         var url ='{{url("/college/")}}/'+cid+'?review'
     
     $.post( url, function( data ) {
+        
         $( "#"+div ).html( data );
         $('#'+div).show();
 });

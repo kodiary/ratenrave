@@ -231,7 +231,7 @@ class Products extends BaseModel {
     }
     public static  function searchCollege($array)
     {
-        $where = "logo IS NOT NULL";
+        $where = "is_complete ='0'";
           if (isset($array['name']) && $array['name'] != "") {
             $where .= " AND name LIKE '%" . Encode($array['name']) . "%'";
         }

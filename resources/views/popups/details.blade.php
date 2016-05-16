@@ -1,7 +1,17 @@
 <div class="view-popup">
 	<div class="close" >x</div>
 	<div class="img_detail col-md-4 col-sm-6">
-		<img alt="" class="img-full" src="{{ asset('assets/images/colleges/'.$college->logo) }}">
+      
+		<img alt="" class="img-full" src="<?php echo asset('assets/images/'.show_img('$college->logo'));?>">
+        <h2>Faculites</h2>
+        <?php
+            $faculties = \App\Http\Models\CollegeFaculties::where('coll_id',$college->id)->get();
+            foreach($faculties as $fac)
+            {
+                echo $fac->title."<br/>";
+            }
+        ?>
+        
 	</div><!-- .img_detail -->
 
 	<div class="detail_rating col-md-8 col-sm-6">

@@ -52,6 +52,12 @@ echo newrow($new, "Name", "",true); ?>
         <input type="text" required="" value="{{$restaurant->website}}" class="form-control" id="website" name="website">
     </div>
 </div>
+<div class="form-group row editaddress">
+    <label id="website_label" class="col-md-3 text-md-right required">Address</label>
+    <div class="col-md-9">
+    @include('common.zones')
+    </div>
+</div>
 <?php if(!$new){
     echo newrow($new, "Description", "", false, 9);
     echo '<textarea name="description" id="messageArea" class="form-control"' . $is_disabled . '>';
@@ -97,7 +103,9 @@ if(count($cuisine_list)>0)
     }
 }
 //echo '</div><DIV STYLE="color: red; display: none;" ID="cousine-error">You must select at least one Faculty in order to continue. You may make adjustments later.</DIV><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div></div>';
+?>
 
+<?php
 if(!$minimum && isset($restaurant->id)){
         echo newrow($new, "Logo", "", "", 7);
         $logoname = 'assets/images/colleges/'.$restaurant->logo;

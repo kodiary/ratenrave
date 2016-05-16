@@ -1086,4 +1086,30 @@ $newCatID=false;
         $data["cities"] = \DB::table('restaurants')->where("is_complete", 1)->groupBy('city')->orderBy('province', 'ASC')->orderBy('city', 'ASC')->get();
         return view('dashboard.restaurant.ajax.cities', $data);
     }
+    function getdistrict($z_id)
+    {
+        $districts = \App\Http\Models\Districts::where('zone_id',$z_id)->get();
+        echo "<select name='district'>";
+        echo "<option value=''>Select District</option>";
+        foreach($districts as $d)
+        {
+            echo "<option value='".$d->id."'>".$d->title."</option>";
+        }
+        echo "</select>";
+        die();
+        
+    }
+function getlatlong($address){
+    // We get the JSON results from this request
+    $geo = file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($address).'&sensor=false');
+    // We convert the JSON to an array
+    $geo = json_decode($geo, true);
+    // If everything is cool
+    if ($geo['status'] = 'OK') {
+      // We set our values
+      $latitude = $geo['results'][0]['geometry']['location']['lat'];
+      $longitude = $geo['results'][0]['geometry']['location']['lng'];
+    }
+    return $latitude.','.$longitude;
+    }
 }

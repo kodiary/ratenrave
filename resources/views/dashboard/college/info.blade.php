@@ -46,6 +46,8 @@
                             <?= view('dashboard.college.college', array("restaurant" => $resturant, 'cuisine_list' => $cuisine_list, "new" => false, "is_disabled" => $is_disabled));  ?>
                         </div>
                     </div>
+                     
+                        
 
                     {!! Form::close() !!}
 

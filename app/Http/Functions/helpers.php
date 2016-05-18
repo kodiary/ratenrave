@@ -1955,8 +1955,9 @@
     
     function show_img($img)
     {
-        if(file_exists(asset('assets/images/colleges/'.$img)))
-            return '/college/'.$img;
+        
+        if(file_exists(public_path('assets/images/colleges/'.$img)))
+            return '/colleges/'.$img;
         else
             return "logo.png";
     }

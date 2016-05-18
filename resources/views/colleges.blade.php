@@ -5,7 +5,7 @@
         <li class="col-md-3 col-sm-4 col-xs-12 no-padding">
     		<div class="product-item">
                 <div class="img_btn_wrap">
-    				<img alt="" class="img-responsive" src="<?php echo asset('assets/images/'.show_img('$college->logo'));?>" />
+    				<img alt="" class="img-responsive" src="<?php echo asset('assets/images/'.show_img($college->logo));?>" />
     				<div class="hover_item">
                         <?php $ratings = \App\Http\Models\RatingDefine::where('type','college')->get();
                         foreach($ratings as $rating)

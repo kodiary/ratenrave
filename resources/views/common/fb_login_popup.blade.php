@@ -3,7 +3,7 @@
 <div style="text-align: center;">
 <h3>Login With Facebook</h3>
 <hr />
-In order to make our system genuine, we want our users to login with facebook in order to verify their identity. Furthermore, the education history of the users will be grabbed from their facebook account to verify that they have attended the institute. <strong>The user must make sure that they have added the institute they are trying to review in their facebook profile for better review result.</strong>
+In order to make our system genuine, we want our users to login with facebook to verify their identities. Furthermore, the education history of the users will be grabbed from their facebook accounts to verify that they have attended the respective institutes. <strong>The users must make sure that they have added the institute they are trying to review, in their facebook profile for better review result.</strong>
 <hr />
 
 

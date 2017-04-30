@@ -2,6 +2,7 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use \App\Http\Models\Products;
 
 class Profiles extends BaseModel {
 
@@ -48,4 +49,39 @@ class Profiles extends BaseModel {
         }
         return $query;
     }
+    public static function check_edu($uid,$cid)
+    {
+        $user = self::find($uid);
+        //var_dump($user);
+        $college = Products::find($cid);
+        $name = strtolower($college->name);
+        //echo "<br/>";
+        $abbr_name = strtolower(preg_replace("~\b(\w)|.~",'$1',$name));
+        
+        $per = 0;
+        for($i=1;$i<=5;$i++)
+        {
+            
+            if($user->{"edu".$i}!='')
+            {
+                $edu[] = strtolower($user->{"edu".$i});
+                similar_text($name, strtolower($user->{"edu".$i}), $temp);
+                
+                if($temp > $per)
+                    $per = $temp;
+                if($per == 100)
+                break;
+            }
+                
+        }
+        //echo "<br/>";
+        
+        if(in_array($name, $edu)|| in_array($abbr_name, $edu) || $per >=90)
+            return true;
+        else
+            return false;
+       
+        
+    }
+    
 }

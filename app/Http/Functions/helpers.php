@@ -1956,7 +1956,7 @@
     function show_img($img)
     {
         
-        if(file_exists(public_path('assets/images/colleges/'.$img)))
+        if(isset($img) && file_exists(public_path('assets/images/colleges/'.$img)))
             return '/colleges/'.$img;
         else
             return "logo.png";

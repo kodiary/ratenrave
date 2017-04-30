@@ -4,4 +4,5 @@
     				<span class="sep"> | </span>
     				All rights reserved Copyright &copy; ratings					
     		</div><!-- .copyright  -->
+             
     	</div><!-- .row  -->

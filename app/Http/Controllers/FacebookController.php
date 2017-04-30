@@ -30,7 +30,7 @@ class FacebookController extends Controller
         $arr['email'] = $user->getEmail();
         $arr['image'] = $user->getAvatar();
         //$arr['raw'] = $user->getRaw();
-        
+        //var_dump($user); die();
        
   // response is of the format "access_token=AAAC..."
   /*$access_token = 'EAAI7NQF38NUBACYAqiFsCvVLJ2yn9xQ6e21DzZBxTVN7ScgTSCUxnNtVKRD3Os6NzdB43ZBRUqF9zySop47Y2B2FOmOBrdeoUwFKVlIH90Gyag9eb03F6dZA7DMO51FF7djKqpTjMQBZBKbqCiIoSZAc1zKZA14P8ZD';

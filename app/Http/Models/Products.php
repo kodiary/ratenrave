@@ -238,28 +238,62 @@ class Products extends BaseModel {
           if (isset($array['description']) && $array['description'] != "") {
             $where .= " AND description LIKE '%" . Encode($array['description']) . "%'";
         }
-        
-        return $items = \DB::table('Products')   
+       
+        $address = (isset($_GET['address']))?$_GET['address']:'';
+        $district = (isset($_GET['district']))?$_GET['district']:'';
+        $zone = (isset($_GET['zone']))?$_GET['zone']:'';
+        $faculties = (isset($_GET['faculites']))?$_GET['faculites']:'';
+     
+        $items = \DB::table('Products')   
                         ->selectRaw('*')
                         //->distinct()
                         ->whereRaw($where)
                         
-                        ->leftJoin('college_faculties', function ($join) {
-                                $join->on('products.id', '=', 'college_faculties.coll_id')
-                                ->where(function($query){
-                                    $query->where('college_faculties.title','LIKE',\DB::raw("'Ten Plus Two Science%'"))
-                                    //->Where('college_faculties.title','LIKE',\DB::raw("'Ten Plus Two Management%'"))
-                                    ;
-                                });
+                        ->Join('college_faculties', function ($join) {
+                                $join->on('products.id', '=', 'college_faculties.coll_id');
+                                
                                 //->orwhere('college_faculties.title','LIKE',\DB::raw("'Ten Plus Two Science%'"))
                                 //->orwhere('college_faculties.title','LIKE',\DB::raw("'Ten Plus Two Management%'"));
                                 
                                 //->where('college_faculties.title1','LIKE','Ten Plus Two Management%');
                                
                             })
+                        ->where(function($query) use ($faculties,$zone,$district,$address){
+                                    if($faculties)
+                                    {
+                                        foreach($faculties as $fac)
+                                        {
+                                            
+                                           $query->orwhere('college_faculties.title','LIKE',\DB::raw("'$fac%'"))
+                                                    
+                                           ;  
+                                        }
+                                    }
+                                    if($zone)
+                                    {
+                                        $z = explode('_',$zone);
+                                        $query->where('zone',$z[0])->orwhere('zone',$z[1]);
+                                        
+                                    }
+                                    if($district)
+                                    {
+                                        $d = explode('_',$district);
+                                        $query->where('district',$d[0])->orwhere('district',$d[1]);
+                                        
+                                    }
+                                   
+                                    if($address)
+                                        $query->where('address','like','%'.$address.'%');
+                                    
+                                })
+                                
+                        ->groupBy('products.id');
                         
-                        ->orderBy('name','asc')
-                        ->paginate(20);
+                        if($faculties)
+                            $items->havingRaw("COUNT(college_faculties.title) =".count($faculties));
+                        
+                       return $items->orderBy('name','asc')
+                            ->paginate(20);
     
     }
 
@@ -288,5 +322,16 @@ class Products extends BaseModel {
         }
         parent::save($options);
         return $ret;
+    }
+    
+    public static function updateRating($cid)
+    {
+        
+        //$cnt  = \App\Http\Models\OverallRating::where('target_id',$cid)->count();
+        $overall_rating = \App\Http\Models\OverallRating::where('target_id',$cid)->where('rate_id','0')->avg('average_rating');
+        //$overall_rating = $ratings/$cnt;
+        self::where('id',$cid)->update(['rating'=>$overall_rating]);
+        
+        
     }
 }

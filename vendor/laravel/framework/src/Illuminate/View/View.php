@@ -3,13 +3,14 @@
 namespace Illuminate\View;
 
 use Exception;
+use Throwable;
 use ArrayAccess;
 use BadMethodCallException;
 use Illuminate\Support\Str;
 use Illuminate\Support\MessageBag;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\View\Engines\EngineInterface;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\View\Engines\EngineInterface;
 use Illuminate\Contracts\Support\MessageProvider;
 use Illuminate\Contracts\View\View as ViewContract;
 
@@ -90,6 +91,10 @@ class View implements ArrayAccess, ViewContract
 
             return ! is_null($response) ? $response : $contents;
         } catch (Exception $e) {
+            $this->factory->flushSections();
+
+            throw $e;
+        } catch (Throwable $e) {
             $this->factory->flushSections();
 
             throw $e;

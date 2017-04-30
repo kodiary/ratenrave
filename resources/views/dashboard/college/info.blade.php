@@ -73,11 +73,13 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-    <!--script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script-->
-    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
-    <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
+    <!--script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
+    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
+    <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script-->
+    
+    <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
+    
     <script src="{{asset('assets/js/ckeditor/ckeditor.js')}}"></script>
     <script src="{{asset('assets/js/upload.js')}}"></script>
     <script type="text/javascript">

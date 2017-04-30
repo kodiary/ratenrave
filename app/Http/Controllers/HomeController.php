@@ -770,7 +770,8 @@ class HomeController extends Controller {
   public function submitRate($ID=0)
   {
     //die('here');
-    
+    $rating = 0;
+    $verified = (\App\Http\Models\Profiles::check_edu(\Session::get('id'), $_POST['target_id']))?'1':'0';
     foreach($_POST as $k=>$v)
     {
         $arr['user_id'] = \Session::get('id');
@@ -778,18 +779,43 @@ class HomeController extends Controller {
         if(str_replace("rating","",$k) != $k)
         {
             $arr['rating_id'] = str_replace("rating","",$k);
+            $rate_value = \App\Http\Models\RatingDefine::get_values($arr['rating_id']);
+            //echo $rate_value *($v/5);
+            $rating += $rate_value *($v/5);
+            //echo "<br/>";
             $arr['rating'] = $v;
             $arr['comments'] = $_POST['comments'];
             $add = \App\Http\Models\RatingUsers::findOrNew($ID);
-                        
-                        $add->populate($arr);
-                        $add->save();
-                        //die('here');
+            $add->populate($arr);
+            $add->save();
+            $values['target_id'] = $_POST['target_id'];
+            $values['rate_id'] =  $arr['rating_id'];
+            $values['review'] = $_POST['comments'];
+            $avg_rating = \App\Http\Models\RatingUsers::getAvg($arr['rating_id'],$values['target_id']);
+            $values['average_rating'] = $avg_rating;
+            $values['verified'] = $verified;
+            \App\Http\Models\OverallRating::insertdata($values);
+            unset($values);      
         }
     }
-    //unset($arr);
+    $star_rating = $rating/20;
+    $values['user_id'] = \Session::get('id');
+    $values['target_id'] = $_POST['target_id'];
+    $values['rating_id'] =  0;
+    $values['rating'] = $star_rating;
+    $values['comments'] = $_POST['comments'];
+    \DB::table('rating_users')->insert($values);
+    unset($values);
+    $values['target_id'] = $_POST['target_id'];
+    $values['rate_id'] = 0;
+    $values['average_rating'] = \App\Http\Models\RatingUsers::getAvg('0',$values['target_id']);
+    $values['verified'] = $verified;
+    $values['review'] = $_POST['comments'];
     
-        return redirect('/')->with('status', 'Your review has been submitted');
+    \App\Http\Models\OverallRating::insertdata($values);
+    //if($values['verified']==1)
+    \App\Http\Models\Products::updateRating($_POST['target_id']);
+    return redirect('/')->with('status', 'Your review has been submitted');
   }
   
 }

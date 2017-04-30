@@ -586,7 +586,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     }
 
     /**
-     * Pulls an item from the collection.
+     * Get and remove an item from the collection.
      *
      * @param  mixed  $key
      * @param  mixed  $default
@@ -763,7 +763,6 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         $items = $this->items;
 
         $callback ? uasort($items, $callback) : uasort($items, function ($a, $b) {
-
             if ($a == $b) {
                 return 0;
             }
@@ -967,7 +966,6 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     {
         return array_map(function ($value) {
             return $value instanceof Arrayable ? $value->toArray() : $value;
-
         }, $this->items);
     }
 

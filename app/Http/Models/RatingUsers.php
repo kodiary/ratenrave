@@ -46,5 +46,11 @@ class RatingUsers extends BaseModel {
         }
         return $query;
     }
+    
+    public static function getAvg($rate_id,$cid)
+    {
+        return self::where('target_id',$cid)->where('rating_id',$rate_id)->avg('rating');
+    }
+    
 
 }

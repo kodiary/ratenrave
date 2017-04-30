@@ -93,8 +93,8 @@ if(count($cuisine_list)>0)
                     echo " />" . $name->title . "<span class='c-indicator'></span>
                 </label>
                 <div class='more_fac' $style>
-                <label>Cost</label><input type='text' placeholder='Total cost' name='cost[]' value='".get_data('cost',$name->title,$restaurant->id)."' />
-                <label>Intake</label><input type='text' placeholder='No of intake' name='intake[]' value='".get_data('intake',$name->title,$restaurant->id)."' />
+                <label>Cost</label><input type='text' placeholder='Total cost'  name='cost[]' value='".get_data('cost',$name->title,$restaurant->id)."' />
+                <label>Intake</label><input type='text' placeholder='No. of intake'  name='intake[]' value='".get_data('intake',$name->title,$restaurant->id)."' />
                 
                 </div>
             </div>";
@@ -146,9 +146,15 @@ $(function(){
       
         if($(this).is(':checked')){
           $(this).parent().parent().find('.more_fac').show();
+          $(this).parent().parent().find('.more_fac input').each(function(){
+            $(this).prop('required',true);
+          })
             }
         else
             $(this).parent().parent().find('.more_fac').hide();
+             $(this).parent().parent().find('.more_fac input').each(function(){
+            $(this).removeAttr('required');
+          })
     })
 })
             function ajaxuploadbtn(button_id) {

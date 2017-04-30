@@ -5,7 +5,7 @@
 		<img alt="" class="img-full" src="<?php echo asset('assets/images/'.show_img('$college->logo'));?>">
         <h2>Faculites</h2>
         <?php
-            $faculties = \App\Http\Models\CollegeFaculties::where('coll_id',$college->id)->get();
+            $faculties = \App\Http\Models\CollegeFaculties::where('coll_id',$college->id)->where('title','LIKE','Ten Plus Two%')->get();
             foreach($faculties as $fac)
             {
                 echo $fac->title."<br/>";

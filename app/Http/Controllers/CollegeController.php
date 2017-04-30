@@ -264,9 +264,20 @@ class CollegeController extends Controller {
                 }
                 
                 // add faculties separately to table, with foreign key coll_id
+                
+                foreach($post['cost'] as $cost)
+                {
+                    if($cost != '')
+                    $new_cost[] = $cost;
+                }
+                foreach($post['intake'] as $cost)
+                {
+                    if($cost != '')
+                    $new_intake[] = $cost;
+                }
                 foreach($post['faculties'] as $k=>$v)
                 {
-                    \App\Http\Models\CollegeFaculties::makenew(array('coll_id' => $id, 'title' => $v, 'cost'=>$post['cost'][$k],'intake'=>$post['intake'][$k]));
+                    \App\Http\Models\CollegeFaculties::makenew(array('coll_id' => $id, 'title' => $v, 'cost'=>$new_cost[$k],'intake'=>$new_intake[$k]));
                 }
                 
                 /*
@@ -1086,14 +1097,24 @@ $newCatID=false;
         $data["cities"] = \DB::table('restaurants')->where("is_complete", 1)->groupBy('city')->orderBy('province', 'ASC')->orderBy('city', 'ASC')->get();
         return view('dashboard.restaurant.ajax.cities', $data);
     }
-    function getdistrict($z_id)
+    function getdistrict($z_id, $coll_id="")
     {
+        
         $districts = \App\Http\Models\Districts::where('zone_id',$z_id)->get();
+        if($coll_id!="")
+        $college = \App\Http\Models\Products::where('id',$coll_id)->first();
         echo "<select name='district'>";
         echo "<option value=''>Select District</option>";
+        
         foreach($districts as $d)
         {
-            echo "<option value='".$d->id."'>".$d->title."</option>";
+            $value = (isset($_GET['search'])||isset($_GET['district']))?($d->id."_".$d->title):$d->id;
+            if((isset($college) &&(strtolower($d->title)==strtolower($college->district)|| $d->id == $college->district))
+            || (isset($_GET['district'])&&$_GET['district']==$d->id."_".$d->title))
+                $selected = "selected='selected'";
+            else
+                $selected = '';
+            echo "<option value='".$value."' $selected>".$d->title."</option>";
         }
         echo "</select>";
         die();

@@ -18,5 +18,11 @@ class RatingDefine extends BaseModel {
         $cells = array('title', 'type', 'is_active');
         $this->copycells($cells, $data);
     }
+    
+    public static function get_values($id)
+    {
+        $val = self::find($id);
+        return $val->rate_value;
+    }
 
 }

@@ -32,7 +32,7 @@ class DateTime extends \Faker\Provider\DateTime
         return static::$monthsGenitive[parent::month($max) - 1];
     }
 
-    public static function day_of_week($max = 'now')
+    public static function dayOfWeek($max = 'now')
     {
         return static::$days[static::dateTime($max)->format('w')];
     }

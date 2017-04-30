@@ -13,6 +13,7 @@ Route::resource('/college/loadmore/',                               'HomeControl
 Route::resource('/college/search/',                                 'HomeController@search');
 Route::get('/college/info/{id}/',                                   'CollegeController@collegeInfo');
 Route::post('/college/info/{id}/',                                  'CollegeController@collegeInfo');
+Route::post('/college/getdistrict/{id}/{coll_id}/',                 'CollegeController@getdistrict');
 Route::post('/college/getdistrict/{id}/',                           'CollegeController@getdistrict');
 Route::get('/college/uploadimg/{type}/',                            'CollegeController@uploadimg');
 Route::post('/college/uploadimg/{type}/',                           'CollegeController@uploadimg');
